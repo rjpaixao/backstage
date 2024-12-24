@@ -1,12 +1,11 @@
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: Template
 metadata:
   name: create-ec2-instance
   description: Template para criar uma instância EC2 na AWS
 spec:
-  type: template
-  lifecycle: experimental
   owner: devops-team
+  type: service
 ---
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
