@@ -1,60 +1,9 @@
 apiVersion: backstage.io/v1alpha1
-kind: Template
+kind: Component
 metadata:
-  name: create-ec2-instance
-  description: Template para criar uma instância EC2 na AWS
+  name: terroir-tracking-web
+  description: Find where your juice comes from
 spec:
-  owner: devops-team
-  type: service
----
-apiVersion: scaffolder.backstage.io/v1beta3
-kind: Template
-metadata:
-  name: create-ec2-instance
-  title: Criar Instância EC2
-  description: Template para criar uma instância EC2 na AWS usando CloudFormation
-spec:
-  owner: devops-team
-  type: service
-  parameters:
-    - title: Configuração da Instância EC2
-      required:
-        - instanceName
-        - instanceType
-        - amiId
-        - keyName
-      properties:
-        instanceName:
-          type: string
-          title: Nome da Instância
-        instanceType:
-          type: string
-          title: Tipo da Instância
-          enum:
-            - t2.micro
-            - t2.small
-            - t2.medium
-        amiId:
-          type: string
-          title: ID da AMI
-        keyName:
-          type: string
-          title: Nome da Chave SSH
-  steps:
-    - id: generate-cloudformation
-      name: Gerar Arquivo CloudFormation
-      action: scaffolder:template
-      input:
-        path: templates/cloudformation.yaml
-        output: output/cloudformation.yaml
-        values:
-          instanceName: ${{ parameters.instanceName }}
-          instanceType: ${{ parameters.instanceType }}
-          amiId: ${{ parameters.amiId }}
-          keyName: ${{ parameters.keyName }}
-    - id: deploy-ec2
-      name: Deploy da Instância EC2
-      action: aws:deploy-cloudformation
-      input:
-        name: ${{ parameters.instanceName }}-stack
-        template: output/cloudformation.yaml
+  type: website
+  lifecycle: production
+  owner: tracking-team
